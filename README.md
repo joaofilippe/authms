@@ -31,7 +31,7 @@ The project follows the **Clean Architecture** principles, which separate the ap
 - **Hibernate** (ORM implementation)
 - **PostgreSQL** (Database)
 - **JWT** (JSON Web Token for authentication)
-- **Maven** (Build tool)
+- **Gradle** (Build tool)
   
 ## Project Structure
 
@@ -74,26 +74,26 @@ The project follows the **Clean Architecture** principles, which separate the ap
    ```
 
 3. **Configure the environment**:
-   Set up the necessary environment variables or edit the `application.yml` file with your PostgreSQL credentials and JWT secret (see [Environment Variables](#environment-variables)).
+   Set up the necessary environment variables or edit the `application.properties` file with your PostgreSQL credentials and JWT secret.
 
 4. **Build the project**:
    ```bash
-   mvn clean install
+   ./gradlew build
    ```
 
 5. **Run the application**:
    ```bash
-   mvn spring-boot:run
+   ./gradlew bootRun
    ```
 
 ## API Endpoints
 
-| Method | Endpoint         | Description                      |
-|--------|------------------|----------------------------------|
-| POST   | `/auth/login`     | Login and receive a JWT token    |
-| POST   | `/auth/register`  | Register a new user              |
-| POST   | `/auth/assign-role`| Assign a role to a user          |
-| GET    | `/users/me`       | Get the authenticated user's info|
+| Method | Endpoint            | Description                       |
+|--------|---------------------|-----------------------------------|
+| POST   | `/auth/login`       | Login and receive a JWT token     |
+| POST   | `/auth/register`    | Register a new user               |
+| POST   | `/auth/assign-role` | Assign a role to a user           |
+| GET    | `/users/me`         | Get the authenticated user's info |
 
 ### Example Requests
 
@@ -136,7 +136,7 @@ You can set the following environment variables for database and security config
 Example `.env` file:
 
 ```
-DB_URL=jdbc:postgresql://localhost:5432/auth_db
+DB_URL=jdbc:postgresql://localhost:5432/authms
 DB_USERNAME=postgres
 DB_PASSWORD=yourpassword
 JWT_SECRET=your-jwt-secret
@@ -147,18 +147,13 @@ JWT_EXPIRATION=3600
 
 The project uses **Hibernate** for ORM (Object-Relational Mapping) and **PostgreSQL** as the database. Make sure PostgreSQL is installed and running.
 
-You can configure the database connection in `src/main/resources/application.yml`:
+You can configure the database connection in `src/main/resources/application.properties`:
 
-```yaml
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/auth_db
-    username: postgres
-    password: yourpassword
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/authms
+spring.datasource.username=user
+spring.datasource.password=password
+spring.datasource.driver-class-name=org.postgresql.Driver
 ```
 
 ## Security
